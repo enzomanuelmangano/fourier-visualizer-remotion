@@ -1,0 +1,32 @@
+{
+  "name": "fourier-skia",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render HelloSkia out/video.mp4",
+    "upgrade": "remotion upgrade",
+    "test": "eslint src --ext ts,tsx,js,jsx && tsc"
+  },
+  "repository": {},
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@remotion/cli": "4.0.36",
+    "@remotion/skia": "4.0.36",
+    "@remotion/zod-types": "4.0.36",
+    "@shopify/react-native-skia": "^0.1.191",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "remotion": "4.0.36",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config": "4.0.36",
+    "@types/react": "^18.0.26",
+    "@types/web": "^0.0.86",
+    "eslint": "^8.43.0",
+    "prettier": "^2.8.8",
+    "typescript": "^4.9.4"
+  },
+  "packageManager": "yarn@1.22.19"
+}
