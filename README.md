@@ -11,7 +11,7 @@ The idea behind this project is absolutely not mine, and the algorithms are wrap
 I simply used the same algorithms to run it using **React Native Skia** and render the output with **Remotion**.
 
 <div align="center">
-  <img src="github.com/enzomanuelmangano/fourier-visualizer-remotion/blob/main/.assets/demo.gif" title="fourier-visualizer" />
+  <img src="https://github.com/enzomanuelmangano/fourier-visualizer-remotion/blob/main/.assets/demo.gif" title="fourier-visualizer" />
 </div>
 
 ## How to Run
