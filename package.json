@@ -15,6 +15,7 @@
     "@remotion/skia": "4.0.36",
     "@remotion/zod-types": "4.0.36",
     "@shopify/react-native-skia": "^0.1.191",
+    "fft.js": "^4.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "remotion": "4.0.36",

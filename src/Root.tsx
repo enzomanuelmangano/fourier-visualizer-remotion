@@ -1,20 +1,22 @@
 import {Composition} from 'remotion';
-import {HelloSkia, helloSkiaSchema} from './HelloSkia';
+import {FourierVisualizerComposition} from './FourierVisualizerComposition';
 
-// Each <Composition> is an entry in the sidebar!
+const FPS = 30;
+
+const SECONDS = 60;
+
+export const durationInFrames = FPS * SECONDS;
 
 export const RemotionRoot: React.FC = () => {
 	return (
 		<>
 			<Composition
-				id="HelloSkia"
-				component={HelloSkia}
-				durationInFrames={150}
-				fps={30}
+				id="FourierVisualizer"
+				component={FourierVisualizerComposition}
+				durationInFrames={durationInFrames}
+				fps={FPS}
 				width={1920}
 				height={1080}
-				schema={helloSkiaSchema}
-				defaultProps={{color1: '#0d81ed', color2: '#c14dff'}}
 			/>
 		</>
 	);

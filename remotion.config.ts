@@ -14,5 +14,9 @@ Config.overrideWebpackConfig((config) => {
 	return enableSkia(config);
 });
 
-Config.setConcurrency(2);
+// Usually I use this value to set the number of threads to use
+// Node -e "const os = require('os'); console.log(os.cpus().length);"
+// In this specific case, I'm using 1, because with 2 or more threads
+// the result was messed up :/
+Config.setConcurrency(1);
 Config.setChromiumOpenGlRenderer('angle');
