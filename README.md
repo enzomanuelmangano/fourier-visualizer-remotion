@@ -1,68 +1,74 @@
-# Remotion video
+# Fourier Visualizer with React Native Skia in Remotion 🎨
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.gif">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+This is a fancy project done in [Remotion](https://www.remotion.dev/) and [React Native Skia](https://shopify.github.io/react-native-skia/) with the goal of building SVG Path using the Fourier Transform.
 
-Welcome to your Remotion project!
+The concept behind this repo is strongly inspired by the following resources:
 
-## Commands
+- [3Blue1Brown](https://twitter.com/3Blue1Brown): ["But what is a Fourier series? From heat flow to drawing with circles"](https://youtu.be/r6sGWTCMz2k)
+- [Jezzamon](https://twitter.com/jezzamonn): ["An Interactive Introduction to Fourier Transforms"](https://www.jezzamon.com/fourier/index.html)
 
-**Install Dependencies**
+The idea behind this project is absolutely not mine, and the algorithms are wrappers of [fft.js](https://www.npmjs.com/package/fft.js).
+I simply used the same algorithms to run it using **React Native Skia** and render the output with **Remotion**.
 
-```console
-yarn
+<div align="center">
+  <img src="github.com/enzomanuelmangano/fourier-visualizer-remotion/blob/main/.assets/demo.gif" title="fourier-visualizer" />
+</div>
+
+## How to Run
+
+Install the dependencies:
+
+```bash
+yarn install
 ```
 
-**Start Preview**
+Execute in dev mode:
 
-```console
+```bash
 yarn start
 ```
 
-**Render video**
+Render the video:
 
-```console
+```bash
 yarn build
 ```
 
-**Upgrade Remotion**
+Before doing that you might want to change the `settings` in the `remotion.config.ts` file.
 
-```console
-yarn run upgrade
-```
+## How it Works
 
-## Using server-side rendering
+At its core, a Fourier Transform allows us to express any function (in this case, a path) as a sum of sinusoids (sines and cosines). Each sinusoid has a specific frequency, amplitude, and phase. In the context of this visualizer, think of them as individual contributors that, when combined, recreate the original path.
 
-This template uses a [custom Webpack override](https://www.remotion.dev/docs/webpack). If you are using server-side rendering, you need to import `enableSkia` from `@remotion/skia/enable` and pass it to [`bundle()`](https://www.remotion.dev/docs/bundle) (if using SSR) and [`deploySite()`](https://www.remotion.dev/docs/lambda/deploysite) (if using Lambda):
+### The Process
 
-```ts
-bundle(entry, () => undefined, {
-	webpackOverride: (config) => enableSkia(config),
-});
-// or
-deploySite({
-	webpackOverride: (config) => enableSkia(config),
-});
-```
+1. **Path to Points**: The `SkPath` is converted into a set of linearly interpolated points using the `generateLinearInterpolatedPoints` function. This function ensures that the path is represented as a series of discrete points that can be processed further.
 
-## Docs
+2. **Preparing for FFT**: For the Fast Fourier Transform (FFT) to work effectively, the number of points must be a power of two. The `fillToPowerOfTwo` function ensures this by possibly adding extra points, guaranteeing compatibility with FFT.
 
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
+3. **Fast Fourier Transform**: With our points ready, they undergo the FFT process using the `computeFFT` function. The FFT transforms our spatial data (points in space) into frequency data. This is where we identify the sinusoids that best represent our path.
 
-## Help
+4. **Extraction of Epicycles**: Post-FFT, we use the `extractEpicycles` function to determine the epicycles' properties (frequency, amplitude, phase). These are the circles you see in the visualization.
 
-We provide help [on our Discord server](https://discord.gg/6VzzNDwUwV).
+5. **Visualization**:
 
-## Issues
+   - **Circles (Epicycles)**: As time (`t`) progresses, each epicycle rotates based on its frequency. The radius of the circle represents its amplitude, and its starting position is adjusted by its phase.
+   - **Path Tracing**: Starting from the center, each epicycle contributes to a point in space. As we sum the contributions of all epicycles, we trace the original path.
 
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
+   The visualization involves both showing the rotating circles (epicycles) and the path they trace. The `circlesPath` and `resultPath` are used for these purposes.
+
+6. **Rendering**: Finally, the visualizations are rendered using the Skia paths. The epicycles, the path being traced, and the final traced path are all displayed in real-time as the Fourier Transform evolves.
+
+### The Result
+
+What you witness is a mesmerizing dance of circles, collectively working to draw the original path 🕺🏻.
+
+## Feedback & Contribution
+
+This is a demo project, but if you have suggestions, feedback, or want to show how you've expanded on this idea, feel free to open issues or submit pull requests!
 
 ## License
 
-Note that for some entities a company license is needed. Read [the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+MIT
+
+---
