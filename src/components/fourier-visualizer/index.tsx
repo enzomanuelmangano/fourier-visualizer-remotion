@@ -8,11 +8,7 @@ import {
 import React, {useMemo} from 'react';
 
 // Utility functions to manage and transform path points
-import {
-	fillToPowerOfTwo,
-	generateLinearInterpolatedPoints,
-	getPoints,
-} from './utils/fill';
+import {fillToPowerOfTwo, getPoints} from './utils/fill';
 
 // Utility functions for Fourier series visualization
 import {extractEpicycles} from './utils/extract-epicycles';
@@ -35,7 +31,7 @@ const FourierVisualizer: React.FC<FourierVisualizerProps> = ({
 	// Shared value to store epicycles computed from the path
 	const epicycles = useMemo(() => {
 		// Convert path into linearly interpolated points
-		const points = generateLinearInterpolatedPoints(getPoints(path), 10);
+		const points = getPoints(path);
 
 		// Ensure the number of points is a power of two for FFT
 		const filledPoints = fillToPowerOfTwo(points);
